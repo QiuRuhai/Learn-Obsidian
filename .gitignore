@@ -1,0 +1,7 @@
+.DS_Store
+.claudian/
+.obsidian/
+inbox/*
+!inbox/.gitkeep
+.raw/*
+!.raw/.gitkeep
