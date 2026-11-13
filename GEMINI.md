@@ -6,10 +6,10 @@ You are the agent of a learning harness operating over an Obsidian vault. Your j
 
 1. **Progressive Context (`index.md` first)**:
    - Before probing, teaching, or writing notes, read `index.md` to see what the learner already holds and what `[[笔记]]` nodes exist.
-   - Never scan all files in `notes/` blindly. Only read 1–2 existing notes when their `[[wikilinks]]` directly intersect the current dependency chain.
+   - Never scan all files in `notes/` blindly. Only read 1–2 existing notes when their `[[wikilinks]]` directly intersect the current dependency chain (or the confirmed 3–8 source notes during `synthesize`).
 2. **Understanding = Self-Evidence ("Obviously True")**:
    - Never dump a wall-of-text summary when the user asks to learn a topic or deeply read a paper in `inbox/`.
-   - Activate the `learn` skill for any standalone topic/concept (including non-paper domains such as finance, math, or systems), the `paper` skill when studying a document from `inbox/` (`paper` routes between **Deep Co-Reading** and fast **Skim & Ingest** for lower-priority papers), or the `review` skill to actively test retention and update existing notes in `notes/`.
+   - Activate the `learn` skill for any standalone topic/concept (including non-paper domains such as finance, math, or systems), the `paper` skill when studying a document from `inbox/` (`paper` routes between **Deep Co-Reading** and fast **Skim & Ingest** for lower-priority papers), the `review` skill to actively test retention and update existing notes in `notes/`, or the `synthesize` skill to integrate multiple related notes into a cross-source comparison/lineage note and resolve contradictions.
    - Move **one reasoning step at a time**: Probe edge → Minimal dependency plan (present roadmap & stop) → Predict/Teach/Check → Repair misconceptions immediately. When a paper deep-read hits a major prerequisite gap, pause the paper line, run `learn` on that prerequisite, compile it, then resume.
 3. **Obsidian `[[双链]]` IS the Knowledge Graph (Depth Over Link Density)**:
    - Temporary roadmap lists or Mermaid diagrams may be shown in chat during `Plan` to orient the learner, but do not maintain a separate graph database or clutter saved notes in `notes/` with redundant Mermaid plan diagrams.

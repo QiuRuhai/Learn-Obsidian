@@ -90,5 +90,8 @@ Only when the paper walkthrough finishes (or when the learner explicitly asks to
    - If the source file came from `inbox/`, move it into `.raw/` (creating `.raw/` if needed) and set/update `source: ".raw/<filename>"` in the paper note's YAML frontmatter.
 3. **Optional Additional Concept Extraction**:
    - If a general, reusable mechanism emerged during paper derivation that wasn't already compiled via a nested `learn` sub-loop, ask if the learner wants a standalone `notes/<概念名>.md` created and linked.
-4. **Update `index.md`**:
+4. **Feed Back & Update Existing Notes (Compile, Don't Just Append)**:
+   - Review the existing `[[概念]]` and predecessor `[[论文]]` notes referenced in this session: did this paper reveal a **new scope boundary, failure mode, counterexample, or contradiction** to any of them?
+   - If yes (only when genuinely warranted—never pad), incrementally update that existing note's `Scope & Failure Modes` / `Misconceptions`, append `[[新论文]]` under its `## 5. 知识溯源 (Provenance)`, and bump `updated:`.
+5. **Update `index.md`**:
    - Append or update the paper entry under `## 论文与文献 (Papers)` with `[deep]` (switching `[skim]` to `[deep]` if upgraded).
