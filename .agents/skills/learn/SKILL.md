@@ -59,16 +59,18 @@ Move across the plan **one reasoning step at a time**. Never lecture across mult
 
 Only when the goal feels **obviously true** to the learner (or when the learner explicitly says "存笔记 / save note"):
 1. Read `_templates/concept-note.md` if needed.
-2. **Equivalence & `[[Wikilink]]` Weaving**:
+2. **Equivalence & `[[Wikilink]]` Weaving (claude-obsidian Style)**:
    - **One Concept, One Note (Atomicity)**: Never cram two distinct standalone concepts (e.g., matrix differential calculus and implicit adjoint differentiation) into a single note; split them and connect via `[[wikilinks]]`.
    - Check `index.md`. If this topic updates an existing note, edit that note rather than creating a duplicate.
-   - Weave Obsidian `[[双链]]` into `prerequisites`, `related` (quoted in YAML: `["[[A]]"]`), and prose transitions (`**前提**：[[A]] + [[B]] ⟹ **结论**：……`). Never put `[[wikilinks]]` inside `$...$`/`$$...$$`, never wrap premises in `[...]`, never use `$\implies$` as prose glue, and never wrap `$...$` inside `**...**`. Do **not** copy the session's temporary Mermaid roadmap into the saved note.
-   - If an existing note in `notes/` is directly extended or corrected by this new note, optionally add a `[[新笔记]]` link in that existing note's `related` list.
-3. **Preserve Both Layers (Depth, Readability & Self-Containment)**:
-   - **Content Depth Over Link Padding**: Dedicate ~80%+ of the note to the concept's own internal mechanics, derivations, and worked examples. Keep `[[wikilinks]]` restrained and purposeful—do not derail a concept note with external paper specifics or unexplained jargon just to grow links.
-   - **Readable Pacing**: Write clear, unhurried short paragraphs with generous spacing around `$$ \begin{aligned} ... \end{aligned} $$` blocks rather than dense, semicolon-crammed bullet walls.
-   - **Self-Contained Setup & Worked Example**: Define the dimension, type, and meaning of every mathematical symbol under `Foundation & Notation`, and include a complete worked example (e.g., a numerical $2\times 2$ / $3\times 3$ calculation or explicit dimension trace) plus `Scope & Failure Modes`.
-   - **Personal Click**: The learner's own intuition, analogies, and the exact misconceptions they overcame during Phase 3 (`The Click & Misconceptions`).
-   - **Retrieval Cues & Provenance**: 2–3 situation-based cues (*different reasons/scenarios the proposition needs to come to mind*, not mere paraphrases), plus a concise `## 5. 知识溯源 (Provenance)` line noting `独立主题学习` or the `[[论文笔记]]` from which it was extracted/updated.
+   - **Three-Layer Linking (Without Cluttering Prose)**:
+     1. **YAML**: Quote `[[wikilinks]]` in `prerequisites`, `related`, and `sources` (`["[[A]]"]`);
+     2. **Natural Inline Links**: Link existing `index.md` concepts only where naturally referenced in prose (never invent dead links to non-existent notes, never put `[[wikilinks]]` inside `$...$`/`$$...$$`, never wrap premises in `[...]`, never use `$\implies$` as prose glue, and never wrap `$...$` inside `**...**`);
+     3. **Bottom Relation Block (`## 自测与关联`)**: Keep upstream/downstream links and provenance tidy at the bottom.
+   - **Bidirectional Back-Linking**: If this new note directly extends, corrects, or builds on an existing note in `notes/`, add `[[新笔记]]` to that existing note's `related` list (and `自测与关联`). Do **not** copy the session's temporary Mermaid roadmap into the saved note.
+3. **Preserve Both Layers (Flat Structure, Deep Content)**:
+   - **Content Depth Over Link Padding**: Keep the template flat—dedicate ~80%+ of `## 机制与推导` to the concept's own internal mechanics, symbol definitions, continuous `$$ \begin{aligned} ... \end{aligned} $$` derivations, at least one concrete worked example (e.g., numerical $2\times 2$ / $3\times 3$ or explicit dimension trace), and failure boundaries.
+   - **Readable Pacing**: Write unhurried short paragraphs with generous spacing around math blocks rather than dense, semicolon-crammed bullet walls.
+   - **Personal Click (`## 顿悟与误区`)**: The learner's own intuition, analogies, and the exact misconceptions overcome during Phase 3.
+   - **Retrieval Cues & Provenance (`## 自测与关联`)**: 2–3 situation-based cues (*different reasons/scenarios the proposition needs to come to mind*, not mere paraphrases), plus `前置 / 关联` and `来源` (`独立学习` or `[[论文笔记]]`).
 4. Write `notes/<主题名称>.md` and append/update a one-line entry in `index.md` under `## 概念与主题 (Concepts)`.
 5. **If invoked mid-paper**: Immediately after compiling this prerequisite concept note (so the learner can review it throughout the rest of the paper), mark the prerequisite `[✓]` and explicitly resume the paused paper roadmap step.

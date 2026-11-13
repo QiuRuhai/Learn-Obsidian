@@ -18,7 +18,7 @@ Reviewing a note does **not** mean summarizing it back to the learner. Reading a
    - If the user names a specific `[[概念]]` or `[[论文]]`, locate it in `index.md`.
    - If the user asks for a general review or pre-paper warm-up, propose 1–3 high-leverage notes from `index.md` (prioritizing direct prerequisites, older entries, or `[skim]` papers to test what actually stuck) and confirm which to test.
 2. **Read Only the Target Note(s) (1–3 max)**:
-   - Focus on `Core Proposition` / `Core Claim`, `The Click & Misconceptions`, and `Retrieval Cues`.
+   - Focus on the core proposition (`>`), `## 顿悟与误区` / `## 批注与疑问`, and `## 自测与关联`.
 
 ## Phase 2: Active Diagnostic Check (One Question at a Time)
 

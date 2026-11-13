@@ -23,7 +23,7 @@ Synthesizing multiple notes is **not** concatenating summaries into a long table
 ## Phase 2: Targeted Read & Conflict Scan
 
 1. **Read Only the Confirmed Source Notes (3–8 max)**:
-   - Focus on `Core Proposition/Claim`, `Method/Mechanics`, `Scope & Failure Modes`, and `Provenance`.
+   - Focus on the core proposition (`>`), `## 机制与推导` / `## 问题与方法`, and `## 自测与关联`.
 2. **Spot Roots, Bifurcations & Contradictions**:
    - Identify: (a) the common bottleneck they all start from, (b) the exact constraint or trade-off where each route splits, and (c) any implicit contradictions or outdated assumptions between older and newer notes.
 
