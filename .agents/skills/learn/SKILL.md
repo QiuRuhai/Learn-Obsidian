@@ -60,11 +60,14 @@ Move across the plan **one reasoning step at a time**. Never lecture across mult
 Only when the goal feels **obviously true** to the learner (or when the learner explicitly says "存笔记 / save note"):
 1. Read `_templates/concept-note.md` if needed.
 2. **Equivalence & `[[Wikilink]]` Weaving**:
+   - **One Concept, One Note (Atomicity)**: Never cram two distinct standalone concepts (e.g., matrix differential calculus and implicit adjoint differentiation) into a single note; split them and connect via `[[wikilinks]]`.
    - Check `index.md`. If this topic updates an existing note, edit that note rather than creating a duplicate.
-   - Weave Obsidian `[[双链]]` into `prerequisites`, `related`, and inline reasoning chains (`[前提 [[A]] + 前提 [[B]]] \implies 结论`) so Obsidian's Graph View forms the dependency network automatically. Do **not** copy the session's temporary Mermaid roadmap into the saved note.
+   - Weave Obsidian `[[双链]]` into `prerequisites`, `related` (quoted in YAML: `["[[A]]"]`), and prose transitions (`**前提**：[[A]] + [[B]] ⟹ **结论**：……`). Never put `[[wikilinks]]` inside `$...$`/`$$...$$`, never wrap premises in `[...]`, never use `$\implies$` as prose glue, and never wrap `$...$` inside `**...**`. Do **not** copy the session's temporary Mermaid roadmap into the saved note.
    - If an existing note in `notes/` is directly extended or corrected by this new note, optionally add a `[[新笔记]]` link in that existing note's `related` list.
-3. **Preserve Both Layers**:
-   - **Objective Structure**: Standalone, self-contained core proposition + unconditional truths + jointly-entailing reasoning chains.
+3. **Preserve Both Layers (Depth, Readability & Self-Containment)**:
+   - **Content Depth Over Link Padding**: Dedicate ~80%+ of the note to the concept's own internal mechanics, derivations, and worked examples. Keep `[[wikilinks]]` restrained and purposeful—do not derail a concept note with external paper specifics or unexplained jargon just to grow links.
+   - **Readable Pacing**: Write clear, unhurried short paragraphs with generous spacing around `$$ \begin{aligned} ... \end{aligned} $$` blocks rather than dense, semicolon-crammed bullet walls.
+   - **Self-Contained Setup & Worked Example**: Define the dimension, type, and meaning of every mathematical symbol under `Foundation & Notation`, and include a complete worked example (e.g., a numerical $2\times 2$ / $3\times 3$ calculation or explicit dimension trace) plus `Scope & Failure Modes`.
    - **Personal Click**: The learner's own intuition, analogies, and the exact misconceptions they overcame during Phase 3 (`The Click & Misconceptions`).
    - **Retrieval Cues**: 2–3 situation-based cues at the bottom (*different reasons/scenarios the proposition needs to come to mind*, not mere paraphrases).
 4. Write `notes/<主题名称>.md` and append/update a one-line entry in `index.md` under `## 概念与主题 (Concepts)`.

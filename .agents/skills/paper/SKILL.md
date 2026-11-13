@@ -84,7 +84,7 @@ Walk through the confirmed roadmap **one step at a time**:
 Only when the paper walkthrough finishes (or when the learner explicitly asks to save):
 1. **Write or Upgrade `notes/<论文简称或标题>.md`**:
    - Follow `_templates/paper-note.md` and set `status: deep`. If upgrading an earlier `skim` note for this paper, update that existing file rather than creating a duplicate.
-   - Express the method as **jointly-entailing reasoning chains** (`[痛点 A + 约束 B] \implies 设计 C`), weaving Obsidian `[[双链]]` to related concepts (including any newly compiled prerequisite concepts) and predecessor/related papers. Do **not** save the session's temporary Mermaid roadmap into `notes/`.
+   - Express the method as **jointly-entailing reasoning chains** (`**前提**：痛点 A + 约束 B ⟹ **设计**：C`), weaving Obsidian `[[双链]]` to related concepts (including any newly compiled prerequisite concepts) and predecessor/related papers. Keep `[[wikilinks]]` outside `$...$`/`$$...$$`, quote YAML wikilinks, avoid `[...]` premise wrappers and prose `$\implies$`, and promote dense derivations to standalone `$$...$$` blocks. Do **not** save the session's temporary Mermaid roadmap into `notes/`.
    - Record the learner's personal **Click** (where they got stuck and how it clicked) and 2–3 **Retrieval Cues**.
 2. **Archive Processed Source to `.raw/`**:
    - If the source file came from `inbox/`, move it into `.raw/` (creating `.raw/` if needed) and set/update `source: ".raw/<filename>"` in the paper note's YAML frontmatter.
