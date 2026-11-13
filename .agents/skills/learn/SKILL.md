@@ -69,6 +69,6 @@ Only when the goal feels **obviously true** to the learner (or when the learner 
    - **Readable Pacing**: Write clear, unhurried short paragraphs with generous spacing around `$$ \begin{aligned} ... \end{aligned} $$` blocks rather than dense, semicolon-crammed bullet walls.
    - **Self-Contained Setup & Worked Example**: Define the dimension, type, and meaning of every mathematical symbol under `Foundation & Notation`, and include a complete worked example (e.g., a numerical $2\times 2$ / $3\times 3$ calculation or explicit dimension trace) plus `Scope & Failure Modes`.
    - **Personal Click**: The learner's own intuition, analogies, and the exact misconceptions they overcame during Phase 3 (`The Click & Misconceptions`).
-   - **Retrieval Cues**: 2–3 situation-based cues at the bottom (*different reasons/scenarios the proposition needs to come to mind*, not mere paraphrases).
+   - **Retrieval Cues & Provenance**: 2–3 situation-based cues (*different reasons/scenarios the proposition needs to come to mind*, not mere paraphrases), plus a concise `## 5. 知识溯源 (Provenance)` line noting `独立主题学习` or the `[[论文笔记]]` from which it was extracted/updated.
 4. Write `notes/<主题名称>.md` and append/update a one-line entry in `index.md` under `## 概念与主题 (Concepts)`.
 5. **If invoked mid-paper**: Immediately after compiling this prerequisite concept note (so the learner can review it throughout the rest of the paper), mark the prerequisite `[✓]` and explicitly resume the paused paper roadmap step.
