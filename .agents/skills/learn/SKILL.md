@@ -30,7 +30,7 @@ Once the learner's floor and concrete goal are bracketed:
 1. Construct the **Minimal Tree**:
    - Prune everything the learner already holds (from `index.md` or the probe).
    - Prune everything off the direct path to the goal, however interesting.
-   - Stress-test the roots: ensure the starting nodes are genuine **unconditional truths** (caveat-free universal statements or real definitions the learner accepts at face value), not disguised theorems.
+   - Stress-test the roots & DAG topological order: ensure the starting nodes are genuine **unconditional truths** (caveat-free universal statements or real definitions), and verify the sequence is strictly acyclic so every step depends only on previously confirmed or derived nodes (never forward-referencing later steps).
 2. **Present the roadmap and STOP**:
    - **Pruned Anchors**: Explicitly list which prerequisites (including existing `[[概念]]` from `index.md`) are assumed/skipped so the learner can catch any misjudged foundation before starting.
    - **Non-Spoiler Landmarks (3–6 steps)**: Show the dependency path from foundation to goal using status markers (`[✓]` / `[→]` / `[ ]`). Frame each landmark as a *question or bottleneck to resolve*, **never spoiling the derived conclusion** (otherwise Phase 3 `Predict` loses its value).
@@ -40,7 +40,7 @@ Once the learner's floor and concrete goal are bracketed:
 
 ## Phase 3: Teach One Reasoning Step at a Time (`Predict → Teach → Check`)
 
-Move across the plan **one reasoning step at a time**. Never lecture across multiple nodes in a single turn.
+Move across the plan **one reasoning step at a time**. Never lecture across multiple nodes in a single turn. On major landmark transitions or when returning from an inserted branch, optionally include a single-line progress strip (e.g., `[✓] 1 → [→] 2 → [ ] 3`) rather than re-printing the full diagram every turn.
 
 ### Two Teaching Principles (Apply to Every Step)
 - **Principle i (Unconditional truths first)**: Lock in caveat-free base facts or exact definitions before building derived structure on top. Confirm the foundation feels solid before stacking on it.

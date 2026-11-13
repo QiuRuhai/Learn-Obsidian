@@ -56,7 +56,7 @@ Once the learner's goal and prerequisite gaps are bracketed:
 1. **Construct the Minimal Tree (Delta-First When Lineage Exists)**:
    - Prune background already held (from `index.md`, probe, or a direct predecessor `[[论文]]` note) and tangential sections/experiments not needed for the core mechanism.
    - When a predecessor paper is already held, anchor the roadmap at the **Delta**—the exact regime where the predecessor breaks under the new goal.
-   - Order the remaining path as `[前置补洞]` → `[必然推导]` / `[经验权衡 (Trade-off)]`.
+   - Order the remaining path as `[前置补洞]` → `[必然推导]` / `[经验权衡 (Trade-off)]`, verifying strict topological order (each step depends only on confirmed anchors or earlier steps, never forward-referencing later steps).
 2. **Present the Roadmap and STOP**:
    - **Pruned Anchors & Skipped Sections**: Explicitly state which existing `[[概念]]` anchors and paper sections are skipped so the learner can correct any wrong assumption.
    - **Non-Spoiler Landmarks (3–6 steps)**: Show the reading roadmap using status markers (`[✓]` / `[→]` / `[ ]`) and node tags (`[前置补洞]` / `[必然推导]` / `[经验权衡]`). Frame each landmark as a *bottleneck or question to resolve*, **never spoiling the author's trick or final formula** (keep `Predict` alive).
@@ -66,7 +66,7 @@ Once the learner's goal and prerequisite gaps are bracketed:
 
 ### Phase 3: Motivated Co-Reading & Nested `learn`
 
-Walk through the confirmed roadmap **one step at a time**:
+Walk through the confirmed roadmap **one step at a time** (on major landmark transitions or when resuming from a nested `learn` branch, show a single-line progress strip such as `[✓] 1 → [→] 2 → [ ] 3` rather than re-printing the full roadmap):
 1. **Motivate → One Step → Check → Repair**:
    - **Motivate**: Show the exact failure mode or equation bottleneck before introducing the author's design (*"If we naively compute X here, what breaks?"*).
    - **One Step at a Time**: Walk through one derivation step, formula transformation, or architectural module per turn. Explicitly separate **structural/mathematical necessity** (`[必然推导]`) from **empirical/engineering design choices** (`[经验权衡]`).
