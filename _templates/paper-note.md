@@ -4,10 +4,11 @@ type: paper
 status: "{{status}}" # skim | deep
 authors: []
 year: ""
+source: "{{inbox_file}}" # 归档至 .raw/ 后更新为 ".raw/<filename>"
 created: "{{date}}"
 updated: "{{date}}"
-source: "{{inbox_file}}"
 tags: []
+aliases: []
 prerequisites: [] # YAML 中双链必须加双引号，例如：["[[前置概念]]"]
 concepts: []
 related: []
@@ -19,14 +20,15 @@ related: []
 
 ## 问题与方法
 
-<!-- 自然交代前人瓶颈（如由某前作演化而来，可在文末或自然行文中链接 [[前作论文]]）、核心洞察、符号约定、连贯的数学与算法流程推导、以及代价与失效边界。关键定理或实验结论顺手标注原页锚点（如 `p.4, Eq.(12)`）。[[双链]] 绝不写进 $...$ 内。 -->
+<!-- status: deep 完整交代前作瓶颈、核心洞察、连贯推导（自然点明前向一次计算与反向复用的计算数据流）、低维手算例题、失效边界及原页锚点（如 `p.4, Eq.(12)`）；status: skim 只提炼瓶颈、核心机制骨架与代价边界。 -->
 
 ## 批注与疑问
 
-<!-- status: deep 记共读时卡壳的地方、The Click 与可迁移思路；status: skim 不造假顿悟，只写“待深挖疑问 (Open Questions)”。 -->
+<!-- status: deep 记共读时卡壳的地方、The Click、可迁移思路与对前作边界的修正；status: skim 不造假顿悟，只写“待深挖疑问 (Open Questions)”。 -->
 
 ## 自测与关联
 
+<!-- 写成不提前点破核心技巧的具体物理/优化问题情境或失效症状。 -->
 - **自测线索 1**：……
 - **自测线索 2**：……
 - **前作 / 关联论文**：[[前作论文]]
