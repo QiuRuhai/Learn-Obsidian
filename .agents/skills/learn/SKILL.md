@@ -58,6 +58,11 @@ Move across the plan **one reasoning step at a time**. Never lecture across mult
 4. **Repair with Fading Hints (`Repair` / 阶梯提示)**: If the learner misses or hesitates on a check:
    - First give **one 1-sentence structural or dimensional hint** pointing back to the governing `Unconditional Truth` (or near-edge intuition) before giving away the full derivation.
    - Only if the hint fails to unstick them, diagnose and repair the exact broken link directly. If an unexpected deeper gap surfaces, explicitly show the newly inserted branch in the roadmap before stepping down to repair it.
+5. **Side-Note Triage & Parking (`📌 待沉淀支线`)**: When a non-mainline concept arises during Phase 3, route it cleanly without breaking focus:
+   - *Local notation / one-off algebraic trick*: explain in 1–2 sentences inline and keep it inside the main note; never nominate as a standalone note.
+   - *Blocking foundational gap*: pause the current roadmap (`[→ 暂停]`), insert and walk through the prerequisite step until solid, and compile it if it is a standalone reusable concept.
+   - *Non-blocking reusable concept*: when a 1–2 sentence reminder keeps the main line moving, **and** either (a) it is a standard standalone tool that links to existing `index.md` concepts or future topics, **or** (b) the learner asks a follow-up question about it / says "记一下", do **not** derail the main lesson; append a 1-line bookmark in chat (max 1–3 per session):
+     `📌 待沉淀支线：<概念名>（<1句跨场景价值或与已有[[笔记]]的关联>）`
 
 ## Phase 4: Lazy Compilation into Obsidian (`notes/` + `index.md` + Lint)
 
@@ -73,8 +78,12 @@ Only when the goal feels **obviously true** to the learner (or when the learner 
    - **Bidirectional Back-Linking**: If this new note directly extends, corrects, or builds on an existing note in `notes/`, add `[[新笔记]]` to that note's `related` list and `## 自测与关联`. Do **not** copy the session's temporary Mermaid roadmap into the saved note.
 3. **Preserve Both Layers (Flat Structure, Deep Content)**:
    - **Content Depth Over Link Padding**: Dedicate ~80%+ of `## 机制与推导` to internal mechanics, symbol definitions, standalone `$$ \begin{aligned} ... \end{aligned} $$` derivations, at least one worked concrete example (e.g., numerical $2\times 2$ / $3\times 3$ or dimension trace), and failure boundaries, written in readable short paragraphs with generous spacing around math blocks.
-   - **Personal Click (`## 顿悟与误区`)**: Capture the learner's own `想通的关键` and the exact `容易踩的坑` overcome during Phase 3.
+   - **Personal Click (`## 顿悟与误区`)**: Capture the learner's own `想通的关键` and the exact `容易踩的坑` overcome during Phase 3. If any parked `📌 待沉淀支线` items are deferred by the learner, record them here as `- **待沉淀支线**：<概念名>（<理由>）` so they persist across sessions.
    - **Retrieval Cues & Provenance (`## 自测与关联`)**: Write 2–3 situation-based `自测线索` (distinct problem scenarios where the proposition needs to come to mind, not mere paraphrases), plus `前置 / 关联` and `来源` (`独立学习` or `[[论文笔记]]`).
-4. **Write & Index**: Write `notes/<主题名称>.md` and append/update a one-line entry in `index.md` under `## 概念与主题 (Concepts)`.
-5. **Vault Lint Verification**: Run `python3 scripts/lint-vault.py` after compiling notes into `notes/` and updating `index.md`, and fix any reported formatting, YAML, or link errors immediately.
-6. **If invoked mid-paper**: Immediately after compiling and linting this prerequisite concept note, mark the prerequisite `[✓]` and explicitly resume the paused paper roadmap step.
+4. **Automatic Tagging, Write & `index.md` Domain Grouping**:
+   - **Auto-Assign YAML `tags` (Never Offload to the Learner)**: Assign `tags: [domain, subtag1, subtag2]` automatically—keep the first tag as a canonical primary domain (`math`, `physics`, `finance`, `cs`, `economics`, etc.) followed by 1–2 sub-topic tags, reusing existing `index.md` / vault tags before coining new ones.
+   - Write `notes/<主题名称>.md` and append/update a one-line entry in `index.md` under `## 概念与主题 (Concepts)` inside the matching `### <领域名称>` subheading (e.g., `### 数学与数值基座 (Math & Numerical Foundations)`, `### 可微物理与仿真 (Differentiable Physics)`, `### 金融与量化 (Finance & Quantitative)`), creating a new `###` domain group only when a genuinely new discipline appears.
+5. **Resolve Parked Side-Notes (`📌 待沉淀支线`)**:
+   - After compiling the main note, list any parked `📌 待沉淀支线` items from Phase 3 and ask whether the learner wants to extract and derive any of them into standalone notes now. If yes, run a compact `learn` loop and compile the new note (with bidirectional links back to the main note); if deferred, ensure they remain logged under `## 顿悟与误区` (`- **待沉淀支线**：...`).
+6. **Vault Lint Verification**: Run `python3 scripts/lint-vault.py` after compiling notes into `notes/` and updating `index.md`, and fix any reported formatting, YAML, or link errors immediately.
+7. **If invoked mid-paper**: Immediately after compiling and linting this prerequisite concept note, mark the prerequisite `[✓]` and explicitly resume the paused paper roadmap step.

@@ -53,7 +53,7 @@ Use **only** for lower-priority papers (or baseline ancestors needing only high-
 2. **Compile Paper Note, Archive Source & Lint**:
    - Follow `_templates/paper-note.md` to write `notes/<论文简称或标题>.md` with `status: skim` (fill `authors`, `year`, and key page/equation provenance anchors inside `## 问题与方法`; in `## 批注与疑问`, write `待深挖疑问 (Open Questions)` instead of fabricating unverified insights; wire `prerequisites`/`concepts`/`related` with quoted YAML wikilinks and `## 自测与关联` without creating dead links to unverified concepts).
    - If the source file came from `inbox/`, move it into `.raw/` (creating `.raw/` if needed) and set `source: ".raw/<filename>"` in the paper note so `inbox/` stays a clean unread queue.
-   - Update `index.md` under `## 论文与文献 (Papers)` with `[skim]`.
+   - Update `index.md` under `## 论文与文献 (Papers)` with `[skim]` (using `### <领域名称>` subheadings whenever `Papers` spans multiple disciplines) and auto-assign `tags: [domain, subtag1, subtag2]` with a canonical primary domain first.
    - **Run Vault Lint**: Execute `python3 scripts/lint-vault.py` immediately after updating `notes/` and `index.md`, and fix any reported errors (dead links, `index.md` drift, unquoted YAML wikilinks, `.raw/` archive mismatch, or MathJax × `[[双链]]` collisions) before finishing.
 3. **Instant Escalation**:
    - If any specific mechanism in the digest catches the learner's interest, immediately switch to **Mode B** focused on that mechanism.
@@ -87,12 +87,15 @@ Walk through the confirmed roadmap **one step at a time** (on major landmark tra
      3. **`[计算数据流]` (Computational Dataflow — Forward Once vs. Backward Reuse)**: explicitly trace what is computed, assembled, or pre-factored **once during forward** (e.g., Jacobian assembly, matrix factorization such as `[[Cholesky 预分解]]`, active-set masks, checkpointed states) vs. what is **reused, transposed, or re-solved during backward** (e.g., adjoint solve reuse, vector-Jacobian products, memory vs. recomputation trade-off).
    - **Worked-Example Fading & Check**: On key equation transitions, walk through a compact low-dimensional trace (e.g., $2 \times 2$ system or 2-step rollout) and fade out the critical algebraic step or backward-reuse step for the learner to complete in `Check` (alongside explaining *why*—never ask for passive recitation).
    - **Repair Immediately (With Fading Hints)**: Fix misconceptions on the spot before advancing. When the learner misses a faded step or boundary check, first give a 1-sentence structural/dimensional hint pointing back to the unconditional premise or dataflow invariant before giving away the full answer; if a deeper prerequisite gap surfaces, explicitly show the inserted branch on the roadmap.
-2. **Nested `learn` Sub-Loop for Deep Prerequisite Gaps**:
-   - When the paper hits an unfamiliar standalone concept that cannot be resolved in a 1-sentence reminder:
+2. **Non-Mainline Side-Note Routing (`Nested learn` vs. `📌 待沉淀支线`)**:
+   - **Case 1 — Local notation / one-off trick**: explain in 1–2 sentences inline and keep inside the paper note; never nominate as a standalone note.
+   - **Case 2 — Blocking foundational gap (`Nested learn` Sub-Loop)**: when a standalone prerequisite blocks derivation and cannot be cleared with a 1-sentence reminder:
      1. Explicitly **pause the paper roadmap** at the current step (`[→ 暂停]`) and show the nested branch.
      2. Switch to the **`learn` skill** workflow (`Probe → Mini-Plan → Teach/Check`) until that prerequisite concept feels obviously true.
-     3. **Compile the prerequisite concept immediately**: write `notes/<概念名>.md` using `_templates/concept-note.md`, update `index.md` under `## 概念与主题 (Concepts)`, and verify with `python3 scripts/lint-vault.py` so the learner can revisit and review it throughout the rest of the paper.
+     3. **Compile the prerequisite concept immediately**: write `notes/<概念名>.md` using `_templates/concept-note.md` (with auto-assigned `tags`), update `index.md` under `## 概念与主题 (Concepts)` (`### <领域名称>`), and verify with `python3 scripts/lint-vault.py` so the learner can revisit and review it throughout the rest of the paper.
      4. Mark the prerequisite `[✓]` and **resume the paused paper step** with `[[概念名]]` now locked in as a verified anchor.
+   - **Case 3 — Non-blocking reusable concept (`📌 待沉淀支线` Side-Note Parking)**: when a brief explanation lets the learner keep moving cleanly on the paper, **and** either (a) it is a standard named tool that connects to existing `index.md` notes or future `inbox/` papers, **or** (b) the learner asked a follow-up question about it / said "记一下", do **not** derail co-reading; append a 1-line bookmark in chat (max 1–3 per paper):
+     `📌 待沉淀支线：<概念名>（<1句跨场景价值或与已有[[笔记]]的关联>）`
 
 ### Phase 4: Compile Paper Note, Archive Source & Lint (`notes/` + `index.md` + `.raw/`)
 
@@ -100,14 +103,17 @@ Only when the paper walkthrough finishes (or when the learner explicitly asks to
 1. **Write or Upgrade `notes/<论文简称或标题>.md`**:
    - Follow `_templates/paper-note.md` and set `status: deep` (filling `authors`, `year`, notation, forward-backward computational dataflow, concrete low-dimensional trace, explicit failure boundaries, and key page/equation provenance anchors such as `p.4, Eq.(12)` naturally inside `## 问题与方法`). If upgrading an earlier `skim` note for this paper, update that existing file rather than creating a duplicate.
    - Keep `## 问题与方法` readable with short paragraphs and continuous `$$ \begin{aligned} ... \end{aligned} $$` blocks; weave Obsidian `[[双链]]` cleanly across YAML (`prerequisites`, `concepts`, `related` with quoted `"[[...]]"`), natural prose references, and `## 自测与关联` (reusing exact `index.md` titles, avoiding dangling links). Keep `[[wikilinks]]` outside `$...$`/`$$...$$`, never wrap `$...$` inside `**...**`, avoid `[...]` premise wrappers and prose `$\implies$` (use `⟹` in prose chains). Do **not** save the session's temporary Mermaid roadmap into `notes/`.
+   - Automatically assign YAML `tags: [domain, subtag1, subtag2]` (first tag = canonical primary domain such as `physics`, `math`, `finance`, `cs`, reusing existing vault tags) without asking the learner to invent tags, and populate `aliases` with common abbreviations / full title variants.
    - Record the learner's personal **Click** in `## 批注与疑问` and 2–3 blind scenario-based **Retrieval Cues** in `## 自测与关联` (framed as problem/failure scenarios that do not spoil the paper's trick).
 2. **Archive Processed Source to `.raw/`**:
    - If the source file came from `inbox/`, move it into `.raw/` (creating `.raw/` if needed) and set/update `source: ".raw/<filename>"` in the paper note's YAML frontmatter.
-3. **Optional Additional Concept Extraction**:
-   - If a general, reusable mechanism emerged during paper derivation that wasn't already compiled via a nested `learn` sub-loop, ask if the learner wants a standalone `notes/<概念名>.md` created and linked.
+3. **Resolve Parked Side-Notes (`📌 待沉淀支线`)**:
+   - Present the parked `📌 待沉淀支线` items collected during Phase 3 (plus any reusable mechanism that surfaced). For each item, the learner decides:
+     - **Learn & extract now**: run a compact `learn` loop, compile `notes/<概念名>.md`, and link bidirectionally with the paper note; or
+     - **Defer**: record `- **待沉淀支线**：<概念名>（<理由>）` under `## 批注与疑问` so it stays discoverable for a future session.
 4. **Feed Back & Back-Link Existing Notes (Compile, Don't Just Append)**:
    - Review the existing `[[概念]]` and predecessor `[[论文]]` notes referenced in this session: did this paper reveal a **new scope boundary, failure mode, counterexample, or contradiction** to any of them?
    - If yes (only when genuinely warranted—never pad), incrementally update that existing note's `机制与推导` / `顿悟与误区`, add `[[新论文]]` to its `sources` / `related` and `## 自测与关联`, and bump `updated:`. Even when no boundary changed, add `[[新论文]]` to a direct predecessor paper's `related` / `## 自测与关联` so lineage links stay bidirectional.
 5. **Update `index.md` & Run Vault Lint**:
-   - Append or update the paper entry under `## 论文与文献 (Papers)` with `[deep]` (switching `[skim]` to `[deep]` if upgraded).
+   - Append or update the paper entry under `## 论文与文献 (Papers)` with `[deep]` (switching `[skim]` to `[deep]` if upgraded, using `### <领域名称>` subheadings when `Papers` spans multiple disciplines).
    - Execute `python3 scripts/lint-vault.py` after writing/updating notes, updating `index.md`, and archiving the PDF from `inbox/` to `.raw/`. Resolve any reported errors before closing.

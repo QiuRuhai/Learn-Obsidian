@@ -4,7 +4,7 @@ type: concept
 status: evergreen
 created: "{{date}}"
 updated: "{{date}}"
-tags: []
+tags: [] # 由 Agent 自动归类：首项固定为一级领域（如 math / physics / finance / cs），后跟 1–2 个细分标签
 aliases: []
 prerequisites: [] # YAML 中双链必须加双引号，例如：["[[前置概念]]"]
 related: []
