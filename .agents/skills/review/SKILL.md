@@ -1,56 +1,56 @@
 ---
 name: review
 description: >-
-  Use this skill when the user wants to review, test retention, refresh memory,
-  or quiz themselves on existing concepts or papers in notes/ (or warm up
-  prerequisites before starting a new paper). Uses Blind Cue-Driven Cold
-  Retrieval, Targeted Deep Probes, Retrieval Cues, and recorded Misconceptions
-  for active diagnostic questioning rather than passive re-reading.
+  Use this skill when the user wants to review, test retention, quiz
+  themselves, or warm up prerequisites across existing notes in notes/ via
+  blind cue retrieval and targeted trap probes. Do NOT use to learn brand-new
+  concepts (`learn`), upgrade `[skim]` concepts/papers to `evergreen` or
+  `deep` (`learn` / `paper`), or run comparative/conflict syntheses
+  (`synthesize`).
 ---
 
-# Review Skill (Active Retrieval, Blind Cue Recognition & Targeted Repair)
+# Review Skill (Active Retrieval, Discrimination & Targeted Repair)
 
-Reviewing a note does **not** mean summarizing it back to the learner. Reading a clean summary creates fluency without testing retrieval. Your job is to pull the learner's `自测线索` (Retrieval Cues) and `容易踩的坑` (Misconceptions), test whether the underlying reasoning still reconstructs on demand, give fading hints before full repair, and evolve notes only when new signal emerges. Conduct all questioning, repair, and note updates primarily in **Simplified Chinese**, naturally retaining standard **English technical terms**.
+Reviewing a note does **not** mean summarizing it back to the learner. Pull the learner's `自测线索` and `> [!warning] 易错陷阱：` history, test condition-action discrimination and causal reconstruction on demand, reject vague hand-waving, and update notes only when genuine new signal emerges. Conduct all dialogue and edits in **Simplified Chinese**, keeping standard **English technical terms**.
 
-## Phase 1: Locate Target & Read Retrieval Hooks
+## Phase 1: Locate Target & Error-Weighted Selection
 
 1. **Read `index.md` first**:
-   - Never scan all files in `notes/` blindly.
-   - **Single-Note Request**: If the user names a specific `[[概念]]`, `[[论文]]`, or `[[专题综合]]`, locate it in `index.md` (routes to **Mode 2**).
-   - **Multi-Note Review / Pre-Paper Warm-Up**: If the user asks for a general review, domain quiz, or pre-paper warm-up, silently select 2–3 high-leverage notes from `index.md` (prioritizing direct prerequisites, older entries, or `skim` papers) without spoiling their titles upfront (routes to **Mode 1**). If the vault scope is ambiguous, confirm only the *domain/topic scope* rather than leaking the target note names.
-2. **Read Only the Target Note(s) (1–3 max)**:
-   - Focus on the core proposition (`>` blockquote), `## 顿悟与误区` / `## 批注与疑问` / `## 顿悟与自测`, and `## 自测与关联`.
+   - Never scan `notes/` blindly.
+   - **Single-Note Request**: Locate the named `[[概念]]`, `[[论文]]`, or `[[专题]]` note (routes to **Mode 2**).
+   - **Multi-Note Review / Pre-Paper Warm-Up**: Silently select 2–3 high-leverage notes without leaking their titles upfront (routes to **Mode 1**). Weight selection heavily toward `evergreen`/`deep` notes carrying **`> [!warning] 易错陷阱：`** (proven personal blind spots) and **older `updated:` dates** (Bjork New Theory of Disuse); **deprioritize `[skim]` notes** in general Mode 1 draws (include `[skim]` only when named directly in Mode 2 or needed as a pre-paper prerequisite warm-up). Only use `ask_question` for domain selection when the user says bare `"复习"` across `≥2` vault domains (show domain names only, never note titles).
+2. **Read Only Target Note(s) (1–3 max)**:
+   - Focus on core propositions (`>`), mechanism/boundary sections (especially `> [!tip]`, `> [!warning] 易错陷阱：` / `常见误区：`, `> [!question]`), and `## 自测与关联`.
+3. **Frame Lightweight Scope Upfront**:
+   - On entering **Mode 1**, announce the cap in 1 short clause at the top (`本次快速盲测 2–3 题，一次一题`) and ask Question 1 inside the isolated prompt box below, then **STOP**.
 
-## Phase 2: Active Diagnostic Check (Dual Retrieval Modes)
+## Phase 2: Active Diagnostic Check (`Anti-Hand-Waving` + Dual Modes)
 
-Jump straight into retrieval—**never** recap or summarize the note before asking. Always ask one question at a time and require the learner to explain *why* (`thinking`), not just drop a term or formula.
+Never recap the note before asking. Ask **1 free-text question per turn** (never `ask_question`), isolate the prompt cleanly with `---` + `> **Review｜<纯文字短标题>**` (never `$...$` inside `**...**`), require causal reasoning (*why* + *governing condition*), and **STOP** cleanly after asking (**NEVER** answer in the same turn). **Mode 1 Spoiler Ban**: strictly forbid `file://` links during Mode 1 questions or hints until the learner answers and locks the note.
 
-1. **Mode 1: Blind Cue-Driven Cold Retrieval (盲测情境触发)** *(inspired by LearnHarness `Practice`)*:
-   - **When**: Reviewing multiple notes, running a general check, or warming up prerequisites before a paper.
-   - **How**: Present a concrete problem scenario, engineering bottleneck, or failure symptom **without naming which `[[概念]]` or `[[论文]]` is being tested** (and without quoting its title or signature equation). Require the learner to first **identify which concept/tool applies and why** its assumptions match the situation, then sketch the key reasoning step.
-   - *Example contrast*: Instead of “回顾 [[伴随法]]”, ask “前向仿真收敛花了 200 步、设计参数有 $10^5$ 维而目标是标量损失，为什么直接求隐式灵敏度会炸掉？该切换成什么思路把代价压成 1 次线性求解？”
-2. **Mode 2: Targeted Deep Probe (定点深挖)**:
+1. **Mode 1: Blind Condition-Action Discrimination (`盲测情境与干扰辨析`)**:
+   - **When**: Reviewing multiple notes, running a general check, or warming up prerequisites before reading a paper.
+   - **How**: Present a concrete problem symptom paired with **competing plausible methods (decoys)**—**NEVER** naming the target `[[笔记]]` or telegraphing the winning mechanism in the question stem. Ask **only 1 scenario question** per turn.
+   - *Example*: “前向弹性仿真收敛了 200 步、设计参数有 $10^5$ 维而损失是标量：应选择保留 200 步状态做 Unrolled BPTT、前向求状态灵敏度矩阵，还是另一条低内存路线？为什么？”
+2. **Mode 2: Targeted Deep Probe (`定点深挖`)**:
    - **When**: Reviewing a single user-named note.
-   - **How**: Probe directly using its `自测线索`, test whether a recorded trap in `容易踩的坑` stays fixed under a boundary variation, or invert a core assumption (e.g., “前向残差未归零时哪条等式最先失效？”).
-3. **For `status: skim` Paper Notes**:
-   - Test only the high-level bottleneck and insight actually recorded in the note—or ask if the learner wants to escalate it into `paper` **Mode B** for full derivation.
+   - **How**: Probe with its `自测线索`, invert a governing premise, or re-test a recorded `> [!warning] 易错陷阱：` / `常见误区：`.
+3. **For `status: skim` Notes (`concept` & `paper` Protection Ceiling)**:
+   - **NEVER** blind-quiz unencoded algebra or derivations past `> [!question] 待深挖断点`. Test only `已验直觉` + black-box applicability (for `concept`) or trigger conditions + suspect assumptions (for `paper`), or offer seamless upgrade via `learn` (`[skim]` → `evergreen`) / `paper` (`[skim]` → `[deep]`).
+4. **Anti-Hand-Waving Rule**:
+   - Never pass an answer that only drops a `[[概念]]` name without specifying the governing condition, invariant, or object signature. Confirm the landed piece factually and probe specifically for the missing structural piece (zero yes/no spoiler).
 
-## Phase 3: Diagnose, Fading Hints & Cross-Note Interleaving
+## Phase 3: Bounded Repair (1–2 Turns Max), Transfer & Seamless Handoff
 
-1. **If Recall Fails or Is Shaky (`Fading Hint → Targeted Repair`)**:
-   - Do **not** immediately dump the answer or re-lecture the entire note.
-   - **Step 1 — 1-Line Structural Hint**: Give **one 1-line structural or constraint hint** pointing back to the underlying `Unconditional Truth` or symptom cue (in Mode 1, narrow down the cue without naming the target note yet if possible) and give the learner a second chance to reconstruct it.
-   - **Step 2 — Pinpoint Repair**: Only if they remain stuck after the hint, identify the exact broken reasoning link and run 1–2 focused `Predict → Teach → Check` turns until they re-derive it cleanly.
-2. **If Solid (`Cross-Note Interleaving`)**:
-   - Acknowledge briefly (dry register, no empty praise).
-   - Offer **one 1-step cross-note transfer check** linking two `[[笔记]]` (e.g., how `[[概念A]]` accelerates or constrains `[[概念B]]`, or what flips the choice between two approaches), or advance to the next target / conclude if the warm-up goal is met.
+1. **If Recall Fails or Is Shaky (`Fading Hint → Bounded Repair`)**:
+   - *Turn 1 — 1-Line Structural Hint*: Give **1 single-sentence hint** pointing to the governing premise or object signature (withholding target title and `file://` links in Mode 1) and wait.
+   - *Turn 2 (Hard Cap)*: If still stuck or `"不会"`, explain cleanly in ≤1 short block (now pairing the revealed note with `[basename.md](file:///Users/choutelei/01_Learn/MyVault/notes/basename.md)` in chat). Log this blind spot for Phase 4 (`> [!warning] 易错陷阱：`) **only if** the note is `evergreen`/`deep` (or the mistake sits inside `status: skim`'s already-encoded `已验直觉`)—**NEVER** record an unencoded breakpoint gap in a `[skim]` note as an `易错陷阱`. Never turn `review` into a 10-turn lecture; if full re-derivation or `[skim]` completion is needed, offer handing off to `learn` (for concepts) or `paper` `Mode B` (for papers)—**handoff contract**: pass the localized gap directly into Phase 2, **skipping** Phase 1 probing in both skills.
+2. **If Solid (`Composition / Regime-Flip Check`)**:
+   - Confirm in 1 plain factual sentence which exact condition landed (zero praise; link the revealed note via `[basename.md](file:///Users/choutelei/01_Learn/MyVault/notes/basename.md)`). For `evergreen`/`deep` notes, ask **1 one-step transfer check** inside `---` + `> **Review｜<纯文字短标题>**` combining two concepts (`Composition`) or testing what parameter/scale shift flips the Mode 1 choice (`Regime-Flip`), then **STOP**; for `[skim]` notes, skip stretching into unencoded derivations, confirm the skeleton holds cleanly, and offer 1-line `learn` / `paper` upgrade if desired.
+3. **Pre-Paper Warm-Up Handoff**: When warming up before `paper` `Mode B`, hand the verified diagnostic floor (carrying any exposed prerequisite gap as `[前置补洞]` or routing to `learn` if blocking) straight into `paper` Phase 2 (`skip` duplicate Phase 1 probing), or trigger `paper` `[skim]` → `[deep]` upgrade cleanly.
 
-## Phase 4: Evolve the Note & Lint (`notes/` + `index.md`)
+## Phase 4: Evolve Only on New Signal & Lint
 
-1. **No Busywork Edits**:
-   - If the learner recalled cleanly and nothing changed, leave `notes/` and `index.md` untouched.
-2. **Capture New Signal**:
-   - If review uncovered a *new* misconception (`容易踩的坑`), a sharper analogy for `想通的关键`, a missing `[[wikilink]]`, a boundary caveat, or a stronger `自测线索`, update `updated:` and that specific section in the existing note (strictly preserving `GEMINI.md` MathJax × `[[wikilink]]` rules: `[[...]]` never inside `$...$`/`$$...$$`, no `$...$` inside `**...**`, quoted YAML wikilinks).
-   - Update `index.md` only if the one-line summary itself changed (or if a `skim` note was escalated and upgraded via `paper` **Mode B**).
-3. **Vault Lint Verification**:
-   - Whenever any note in `notes/` or `index.md` is updated, run `python3 scripts/lint-vault.py` to confirm zero broken links, YAML issues, or MathJax formatting errors before concluding.
+1. **No Busywork Edits**: Leave `notes/` and `index.md` untouched when recall is clean and nothing changed.
+2. **Promote/Record New Blind Spots**: If review exposed a new misconception, upgrade or write `> [!warning] 易错陷阱：<盲点短标题>` in objective, third-person technical language (never chat transcripts), add/adjust a blind `自测线索` targeting it (without leaking `title`/`aliases` and grounded in body prose), bump `updated:`, and preserve disjoint YAML + `GEMINI.md` formatting rules.
+3. **Deterministic Lint**: Run `python3 -B scripts/lint-vault.py` after any edit and resolve all errors and warnings before finishing.

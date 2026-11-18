@@ -1,89 +1,93 @@
 ---
 name: learn
 description: >-
-  Use this skill whenever the user wants to learn a topic, understand a concept,
-  or figure out how something works. Implements the LearnHarness methodology
-  (calibrated binary-search probing, minimal dependency planning, single-step
-  teaching with worked-example fading) and compiles verified understanding into
-  Obsidian notes connected via [[wikilinks]].
+  Use this skill when the user wants to learn a new standalone concept across
+  any domain, promote an item from `index.md` Backlog (`## 待沉淀支线`),
+  upgrade an unfinished `[skim]` concept note to `evergreen`, enrich an existing
+  concept note from a new derivation angle, or remediate a broken prerequisite
+  flagged by `review` or `paper`. Do NOT use for full paper reading (`paper`),
+  blind recall quizzes (`review`), or multi-note comparative synthesis
+  (`synthesize`).
 ---
 
 # Learn Skill (LearnHarness × Obsidian Wiki)
 
-Your goal is **never** "the learner can recite the summary." Your goal is that the target understanding **feels obviously true**—derived from foundations the learner holds, verified one reasoning step at a time, and only then compiled into `notes/` as an interconnected Obsidian note. This skill works identically for **any standalone domain** (CS, math, finance, economics, systems, etc.) and as a **nested prerequisite sub-routine** invoked mid-paper. Conduct all teaching, checks, and note writing primarily in **Simplified Chinese**, naturally retaining standard **English technical terms**.
+Your goal is **never** "the learner can recite the summary." Your goal is that the target understanding **feels obviously true**—derived from foundations the learner holds, verified one reasoning step at a time, and only then compiled into `notes/` as an interconnected Obsidian note. This skill works identically for **any standalone domain** (CS, math, finance, economics, systems, etc.) and as a **nested prerequisite sub-routine**. Conduct all dialogue and note writing in **Simplified Chinese**, keeping standard **English technical terms**.
 
 ## Phase 1: Context & Calibrated Binary-Search Probe
 
 1. **Read `index.md` first**:
-   - Check what `[[概念]]` notes already exist. If an existing note is a direct prerequisite, read 1–2 relevant notes; never scan the entire `notes/` folder.
-2. **Pin down the concrete goal**:
-   - "I want to learn X" is often ambiguous. Ask 1 brief question (via `ask_question` or plain text) if the target scope needs sharpening.
-3. **Calibrated Binary-Search Probing (Hard Cap: 1–2 Probing Turns)**:
-   - Identify the 2–4 core dependency strands required to reach the goal.
-   - **Enter near the top, not the bottom**: Start near the hardest prerequisite the goal needs rather than warming up on textbook basics. Ask the learner to share both their answer and 1–2 sentences of **reasoning / thinking**.
-   - **Four-Quadrant Probe Calibration**: Classify each response explicitly:
-     - *Correct + sound reasoning* → **solid floor** (`[✓]`, prune from plan);
-     - *Correct + guessed / formula-recited* → **pseudo-fluency trap** (do *not* prune; keep in plan to teach the underlying *why*);
-     - *Wrong + sound partial intuition* → **near-edge** (anchor explicitly on the valid intuition and plan to repair only the broken link);
-     - *Blank / "不会 / 直接讲"* → immediately treat as the **floor boundary** with zero further questioning.
-   - **Anti-Interrogation Cap**: Stop probing after **1–2 turns max** (or immediately on Case 4) and advance to Phase 2 (`Plan`). Never turn probing into interrogation fatigue.
+   - Check existing `[[概念]]` notes and `## 待沉淀支线 (Backlog)`. Read at most 1–2 directly intersecting notes; never scan `notes/` blindly.
+   - **Backlog Promotion, `[skim]` Upgrade & Cross-Skill Handoff**:
+     - **IF** the target sits in `## 待沉淀支线 (Backlog)` with `(源自 [[来源笔记]])`, read `[[来源笔记]]` first to recover the exact pain point and open Step 1 directly from that motivation (skipping generic scoping questions).
+     - **IF** the target appears in `index.md` as `[[<概念名>]] [skim]`, read `notes/<概念名>.md` and its `> [!question] 待深挖断点` (`已验直觉` / `卡壳断点` / `重启入口`), and pair the chat reference with `[<概念名>.md](file:///Users/choutelei/01_Learn/MyVault/notes/<概念名>.md)`. If `sources: []` and the note cites a paper present in `inbox/` or `.raw/`, verify cited equations directly against that PDF before re-deriving (or mention upgrading via `paper` `Mode B` if preferred). Skip Phase 1 probing when `已验直觉` is clear (re-verify briefly only if stale across weeks), enter Phase 2 immediately with a compact 2–3 step **Delta Plan** starting at `卡壳断点` / `重启入口`, and **STOP**.
+     - **IF** invoked directly from `review` (failed recall) or `paper` (`Nested learn`), **skip Phase 1 probing**—the broken dependency is already localized; enter Phase 2 immediately with a compact 2–4 step `Plan`.
+     - **Enrich-in-Place Gate**: **IF** the core target already matches an existing `[evergreen]` `[[X]]` note's central proposition (e.g., dual derivation or new failure boundary), read `notes/X.md` in full, calibrate what is missing, pair the chat pointer with `[X.md](file:///Users/choutelei/01_Learn/MyVault/notes/X.md)`, and merge in-place during Phase 4 rather than minting a near-duplicate note.
+2. **Pin down the concrete goal**: If "I want to learn X" is ambiguous (and not a Backlog item), ask 1 brief clarifying question (or use `ask_question` only when 3–4 distinct technical angles exist) and stop.
+3. **Calibrated Binary-Search Probing (Hard Cap: 1–2 Turns)**:
+   - State 1–2 plain lines of motivating problem context (what concrete task or tension this concept resolves), enter near the hardest prerequisite among 2–4 dependency strands, and present the free-text probe (never `ask_question`) inside `---` + `> **Probe｜<纯文字短标题>**` ending with: *“用 1–2 句话写判断和理由（拿不准可注明‘猜的/模糊’，不会直接说‘不会’）。”* **STOP** the turn immediately (**NEVER** answer your own probe).
+   - Classify the response strictly with **Conservative Anti-Charity**:
+     - **`[Q1]` Solid Floor**: Correct answer + sound causal warrant + steady certainty ⟹ mark `[✓]` and prune; exit Probe immediately on Turn 1.
+     - **`[Q2]` Pseudo-Fluency Trap**: Correct keyword/answer *but* guessed/fuzzy, or missing invariant, condition, or object signature ⟹ name the missing piece in 1 clause, default to `[ ]` in `Plan` without burning an extra probe turn.
+     - **`[Q3]` Near-Edge**: Wrong answer *with* sound partial intuition ⟹ anchor on what is valid and plan to repair only the broken link.
+     - **`[Q4]` Floor Boundary**: Blank / `"不会"` / `"直接讲"` ⟹ immediately set the floor below this step with zero extra questioning, carrying any `[Q2]`/`[Q3]`/`[Q4]` prerequisite gap into Phase 2 so missing basics are explained inside the pipeline overview as well as scheduled in the plan.
 
-## Phase 2: Minimal Dependency Plan (Learning Roadmap)
+## Phase 2: Panorama Pipeline, Prerequisite Patching & Minimal Plan (Working Hypothesis)
 
-Once the learner's floor and concrete goal are bracketed:
-1. **Construct the Minimal Tree (DAG)**:
-   - Prune what is solidly held (`[✓]` from `index.md` or Quadrant 1 of the probe) and anything off the direct path to the goal, while retaining any **pseudo-fluency traps** (`[ ]`) and **near-edge** anchors explicitly.
-   - Stress-test roots and topological order: start from genuine **Unconditional Truths** (caveat-free universal statements or exact definitions) and ensure every step depends only on confirmed or previously derived nodes (never forward-referencing later steps).
-2. **Present the roadmap and STOP**:
-   - **Pruned Anchors**: Explicitly list which foundations (including existing `[[概念]]` from `index.md`) are assumed/skipped so the learner can catch any misjudged floor before starting.
-   - **Non-Spoiler Landmarks (3–6 steps)**: Frame each step along the path from foundation to goal using status markers (`[✓]` / `[→]` / `[ ]`) as a *question or bottleneck to resolve*, **never spoiling the derived conclusion**.
-   - **Temporary Visualization**: Use a numbered list for linear paths; when **2+ dependency strands converge**, include a compact in-chat Mermaid diagram (`flowchart TD` / `LR`, 4–6 nodes) as a temporary cognitive scaffold (never saved into `notes/`).
-   - **Completion Criterion**: State in 1 sentence what the learner will be able to derive or explain when finished.
-   - **End your turn** and ask the learner to confirm the plan before teaching Step 1. Never teach in the same turn that presents the plan.
+1. **Construct the Minimal Tree (DAG) & Scope-Split Ceremony**:
+   - Prune `[✓]` foundations (`index.md` or `[Q1]`) from active Phase 3 derivation while keeping them visible *in-place* inside the macro pipeline; retain `[Q2]` traps, `[Q3]` near-edges, and `[Q4]` missing prerequisites explicitly, ordered from **Unconditional Truths** as a **re-callable working hypothesis**.
+   - **Scope Boundary (Anti-Bloat)**: Apply full **Panorama Pipeline + `[重点深挖 k]` Previews** on `3–6` step multi-stage mechanisms, algorithms, or proof chains. **Skip heavy pipeline staging** on `1–2` step atomic concepts, `2`-step `Nested learn` (use 1-line parent-step anchor only; optional concise local flow + `1` preview if `3–4` steps), `review` single-link repairs, and single-delta `Enrich-in-Place`.
+2. **Present Thorough Pipeline + Prerequisite Patch + Key Impressions & Roadmap (`STOP`)**:
+   - For `≥3`-step topics, **do not compress into cryptic 3–5 line slogans or withhold spoilers**: use **2–4 natural, causally connected paragraphs + a clear stage flow** (optional chat-only `Mermaid` with readable labels; append **1 conditional `符号防撞：` line** if core symbols flip roles against intersecting `notes/`; allow **at most 1 top-level anchor `$$...$$` equation** if helpful) to **openly explain the complete end-to-end mechanism/algorithm/proof flow and its core high-level idea**, weaving in an accessible mini-explanation of any unfamiliar prerequisite surfaced by Phase 1 `Probe`. Highlight **2–3** **`[重点深挖 k：<难点名>]`** parts by **first giving a clear plain-Chinese intuitive impression** of why each is tricky/vital and how the core idea resolves it, then signpost *"等下第 X 步重点把这里的具体推导讲透"* (deferring only multi-step local algebraic derivations to Phase 3).
+   - List ordered landmarks (`[✓]` / `[→]` / `[ ]`, `3–6` steps or `2–4` when nested) + 1-sentence **Completion Criterion**, then **STOP** and wait for confirmation.
 
-## Phase 3: Teach One Reasoning Step at a Time (`Predict → Teach → Check → Repair`)
+## Phase 3: Teach One Reasoning Step at a Time (`Teach → Check → Repair`)
 
-Move across the plan **one reasoning step at a time**. Never lecture across multiple nodes in a single turn. On major landmark transitions or branch returns, optionally show a 1-line progress strip (e.g., `[✓] 1 → [→] 2 → [ ] 3`) instead of repeating the full diagram.
+Advance **1 load-bearing causal/mathematical pivot per turn** using a clean **3-Zone Chat Layout**:
+- **Zone 1 (Progress, Pipeline Locator & Lock)**: Show `` `[✓] 1. ...` → **`[→] 2. ...`** → `[ ] 3. ...` `` (or `2.a/2`), plus a **1-clause Pipeline Locator** on `≥3`-step flows (`流程定位：<所属全局环节>｜[正在深挖重点 k]` or `[重点 k 已推通 ⟹ 交接至…]`) so equations never lose global context, + 1 factual line confirming what the prior reply locked (or naming the exact missing puzzle piece—never empty praise or leading yes/no hints).
+- **Zone 2 (Causal Bridge & Readable Math)**: Open with 1 causal link from the prior step (`上一步卡在… ⟹ 这一步…`), then write airy exposition obeying the **5 In-Chat Equation Rules** (strictly distinct from Phase 4 `notes/` density): (1) precede every `$$...$$` with 1 plain-Chinese intent sentence (`≤1` symbol); (2) emit **at most 1 primary `$$...$$` block per turn**, tagging `≥2`-factor / `≥3`-symbol formulas via `\underbrace{...}_{\text{角色}}` or 2–3 one-line role bullets right below; (3) cap inline math at `≤2` atomic `$...$` spans per sentence (never put `\frac`, norms, transposes, or `\sum` inline—lift to `$$...$$` or use Chinese role names); (4) write out non-trivial chain-rule, transpose, or projection steps explicitly instead of folding inline; (5) de-alias colliding chat indices (e.g., $\bar{\lambda}_k$ vs. $3n$) with a ≤5-word bridge to canonical source notation. Track exposed learner blind spots silently in working memory for Phase 4 `易错陷阱：...`.
+- **Zone 3 (Isolated Prompt & Hard Stop)**: Isolate the single free-text question (never `ask_question`) via `---` + `> **Check｜<纯文字短标题>**` (or rare `Predict`; never `$...$` inside `**...**`) and **STOP**.
 
-### Two Teaching Principles (Apply to Every Step)
-- **Principle i (Unconditional truths first)**: Lock in caveat-free base facts or exact definitions (`Unconditional Truth`) before stacking derived structure on top.
-- **Principle ii ("How could I have discovered this?")**: Motivate every step from a felt bottleneck (*"Our setup works for A, but breaks under B—what has to give?"*) so loose facts collapse into derivations (**the click**).
+### Per-Step Rhythm, Micro-Stepping & 3-Stage Fading
+1. **Teach Clearly First (`Intuition-First, Signature-Anchored` + Dynamic Fading)**:
+   - Never play anti-spoiler guessing games on core definitions or derivations. Lock in the `Unconditional Truth` first: whenever a step mixes calculus/probability with high-D matrices or multi-step indexing, ground it in a **1D scalar / 2-node / 2-state miniature** *before* introducing full tensor notation (skip artificial 1D padding on already-scalar steps), write out the concrete derivation clearly, and lock **object signatures** (`(3n×2)` matrix dimensions, units, or state sets) once each term's role is clear.
+   - **Fade worked scaffolds across the roadmap**:
+     - *High-novelty symbol intro step*: complete worked mini-trace / limit model + 1-line structural `Check`.
+     - *Core pivot step*: concrete derivation taught clearly + `Check` probing the governing warrant, invariant, or degenerate limit ($n=1$, 2-state tree, 3-node quorum).
+     - *Boundary/transfer step*: bare symptom or regime shift, learner diagnoses failure directly.
+2. **Unified Warrant-Coupled `Check` (and Rare Paradox `Predict`)**:
+   - End Zone 3 with **1 unified free-text `Check`** combining the concrete derivation step/outcome and its governing condition, invariant, or signature in one cohesive question (never two stacked tasks) and **STOP**. Apply Conservative Anti-Charity: parroting Phase 2's high-level overview without the concrete mathematical warrant never unlocks `[✓]`; frame follow-ups as open structural puzzle pieces.
+   - Reserve `Predict` strictly for rare counterintuitive paradoxes *after* equations are clear (**IF** asking `Predict`, isolate in Zone 3 and **STOP**; if both direction and warrant are solid, `Predict Fast-Forward` straight to the next step without a duplicate `Check`).
+3. **Adaptive Micro-Stepping Gear (`k.a → k.b` 自适应降档 / 掰碎模式)**:
+   - Auto-downshift `[→] k` into `[→] k.a/2 (直觉与1D拆解)` → `[→] k.b/2 (升维与签名落锁)` whenever a step couples `≥3` mechanisms/layers, jumps from scalar intuition to matrix/horizon indexing, re-enters a `[skim]` `卡壳断点`, or the learner says `"慢一点 / 没看懂 / 帮我拆一下"`.
+   - **Non-Punitive Split**: Downshifting is pacing calibration (**0 `Repair` strikes**, **0 `易错陷阱`** unless a false belief is stated). `k.a` carries the causal bridge + 1D scalar `$$...$$` + directional micro-check (**STOP**, macro `k` stays `[→]`); `k.b` lifts into the full `$$...$$` + explicit algebra bridge + object signature & warrant check (**STOP**, unlocks macro `[✓] k`, then auto-upshifts). If cognitive bailout (`"先出笔记"`) occurs after `k.a`, `k.a` maps cleanly to `已验直觉` and `k.b` to `卡壳断点`.
+4. **2-Turn `Repair` Cap (`阶梯提示`)**:
+   - *Level 1*: Validate what holds in ≤1 clause + give **1 single-sentence hint** pointing to the governing `Unconditional Truth` or object signature (no spoiler), then wait.
+   - *Level 2 (Hard Cap after 2 failures or `"不会/直接讲"`)*: Explain cleanly, confirm with 1 tiny sanity check, and record the misconception mentally for `> [!warning] 易错陷阱：`.
+5. **Silent Side-Note Routing (`📌 待沉淀支线`)**:
+   - *1–2 turn patch*: resolve inline;
+   - *Blocking ≥3-step prerequisite (`Nested learn`)*: pause `[→ 暂停]`, run `learn`, compile & lint, and return;
+   - *Non-blocking reusable concept*: track silently for Phase 4 batch triage (`> 支线暂记：<概念名>` only if learner says `"记一下"`, max 3/session).
 
-### Per-Step Rhythm
-1. **Optional Prediction (`Predict`)**: Pose the motivating bottleneck and let the learner predict the next move before revealing the mechanism.
-2. **Clear Exposition + Visual Scaffolds (`Teach`)**: Resolve their prediction and present **one** reasoning step cleanly without narrating lesson choreography (*"Now we move to Node 2"*). Whenever abstract algebra or multi-index notation hides intuition, introduce a concrete low-dimensional (1D or $2\times 2$) trace or a compact ASCII/Mermaid geometric/structural scaffold **during** teaching—do not defer concrete examples until compilation.
-3. **Verify Landing via Worked-Example Fading (`Check`)**: End every teaching step with **one concrete check** requiring active reasoning over recitation:
-   - Use **Worked-Example Fading**: after walking through the general mechanism or initial setup, present a concrete $2\times 2$ instance or boundary variation with the first step anchored and ask the learner to complete the key missing step and explain *why*.
-   - If using `ask_question` for a multiple-choice check, map each distractor to a specific misconception.
-4. **Repair with Fading Hints (`Repair` / 阶梯提示)**: If the learner misses or hesitates on a check:
-   - First give **one 1-sentence structural or dimensional hint** pointing back to the governing `Unconditional Truth` (or near-edge intuition) before giving away the full derivation.
-   - Only if the hint fails to unstick them, diagnose and repair the exact broken link directly. If an unexpected deeper gap surfaces, explicitly show the newly inserted branch in the roadmap before stepping down to repair it.
-5. **Side-Note Triage & Parking (`📌 待沉淀支线`)**: When a non-mainline concept arises during Phase 3, route it cleanly without breaking focus:
-   - *Local notation / one-off algebraic trick*: explain in 1–2 sentences inline and keep it inside the main note; never nominate as a standalone note.
-   - *Blocking foundational gap*: pause the current roadmap (`[→ 暂停]`), insert and walk through the prerequisite step until solid, and compile it if it is a standalone reusable concept.
-   - *Non-blocking reusable concept*: when a 1–2 sentence reminder keeps the main line moving, **and** either (a) it is a standard standalone tool that links to existing `index.md` concepts or future topics, **or** (b) the learner asks a follow-up question about it / says "记一下", do **not** derail the main lesson; append a 1-line bookmark in chat (max 1–3 per session):
-     `📌 待沉淀支线：<概念名>（<1句跨场景价值或与已有[[笔记]]的关联>）`
+## Phase 4: Gate, Compile into Obsidian (`notes/` + `index.md` + Backlog) & Lint
 
-## Phase 4: Lazy Compilation into Obsidian (`notes/` + `index.md` + Lint)
-
-Only when the goal feels **obviously true** to the learner (or when the learner explicitly says "存笔记 / save note"):
-1. Read `_templates/concept-note.md` if needed.
-2. **Equivalence & `[[Wikilink]]` Weaving**:
-   - **One Concept, One Note (Atomicity)**: Never cram two distinct standalone concepts into one note; split them and connect via `[[wikilinks]]`.
-   - Check `index.md`. If this topic updates an existing note, edit that note rather than creating a duplicate.
-   - **Three-Layer Linking (Without Cluttering Prose)**:
-     1. **YAML**: Quote `[[wikilinks]]` in `prerequisites`, `related`, and `sources` (e.g., `["[[概念A]]"]`);
-     2. **Natural Inline Links**: Link existing `index.md` concepts only where naturally referenced in prose—never invent dead links, never put `[[wikilinks]]` inside `$...$`/`$$...$$`, never wrap reasoning premises in `[...]`, never use `$\implies$` as prose glue (use `⟹`), never leave spaces right inside inline `$...$`, and never wrap `$...$` inside `**...**`;
-     3. **Bottom Relation Block (`## 自测与关联`)**: Keep upstream/downstream links and provenance tidy at the bottom.
-   - **Bidirectional Back-Linking**: If this new note directly extends, corrects, or builds on an existing note in `notes/`, add `[[新笔记]]` to that note's `related` list and `## 自测与关联`. Do **not** copy the session's temporary Mermaid roadmap into the saved note.
-3. **Preserve Both Layers (Flat Structure, Deep Content)**:
-   - **Content Depth Over Link Padding**: Dedicate ~80%+ of `## 机制与推导` to internal mechanics, symbol definitions, standalone `$$ \begin{aligned} ... \end{aligned} $$` derivations, at least one worked concrete example (e.g., numerical $2\times 2$ / $3\times 3$ or dimension trace), and failure boundaries, written in readable short paragraphs with generous spacing around math blocks.
-   - **Personal Click (`## 顿悟与误区`)**: Capture the learner's own `想通的关键` and the exact `容易踩的坑` overcome during Phase 3. If any parked `📌 待沉淀支线` items are deferred by the learner, record them here as `- **待沉淀支线**：<概念名>（<理由>）` so they persist across sessions.
-   - **Retrieval Cues & Provenance (`## 自测与关联`)**: Write 2–3 situation-based `自测线索` (distinct problem scenarios where the proposition needs to come to mind, not mere paraphrases), plus `前置 / 关联` and `来源` (`独立学习` or `[[论文笔记]]`).
-4. **Automatic Tagging, Write & `index.md` Domain Grouping**:
-   - **Auto-Assign YAML `tags` (Never Offload to the Learner)**: Assign `tags: [domain, subtag1, subtag2]` automatically—keep the first tag as a canonical primary domain (`math`, `physics`, `finance`, `cs`, `economics`, etc.) followed by 1–2 sub-topic tags, reusing existing `index.md` / vault tags before coining new ones.
-   - Write `notes/<主题名称>.md` and append/update a one-line entry in `index.md` under `## 概念与主题 (Concepts)` inside the matching `### <领域名称>` subheading (e.g., `### 数学与数值基座 (Math & Numerical Foundations)`, `### 可微物理与仿真 (Differentiable Physics)`, `### 金融与量化 (Finance & Quantitative)`), creating a new `###` domain group only when a genuinely new discipline appears.
-5. **Resolve Parked Side-Notes (`📌 待沉淀支线`)**:
-   - After compiling the main note, list any parked `📌 待沉淀支线` items from Phase 3 and ask whether the learner wants to extract and derive any of them into standalone notes now. If yes, run a compact `learn` loop and compile the new note (with bidirectional links back to the main note); if deferred, ensure they remain logged under `## 顿悟与误区` (`- **待沉淀支线**：...`).
-6. **Vault Lint Verification**: Run `python3 scripts/lint-vault.py` after compiling notes into `notes/` and updating `index.md`, and fix any reported formatting, YAML, or link errors immediately.
-7. **If invoked mid-paper**: Immediately after compiling and linting this prerequisite concept note, mark the prerequisite `[✓]` and explicitly resume the paused paper roadmap step.
+1. **Active Pipeline Reconstruction Gate (`回扣总体流程闭环`) & Two-Way `"存笔记"` Intent Split**:
+   - **Normal Completion / `[skim]` Upgrade**: When all roadmap steps are `[✓]`, re-display **only** Phase 2's bare stage skeleton + `[重点 k]` slot names (without Phase 2's explanatory prose) and ask in **1 single turn** for a 2–4 plain-sentence unaided recap stitching the derived invariants/mechanisms back across the overall flow (`痛点 ⟹ 各重点环节如何靠具体机制串起全局 ⟹ 主失效边界`), then **STOP**; apply Conservative Anti-Charity and fold any stitching gap into `> [!warning] 易错陷阱：`. **Bypass** on explicit `"已懂/跳过/存笔记"`, nested `learn`, or 1–2 step topics → compile/upgrade as **`status: evergreen`**.
+   - **Cognitive-Fatigue Bailout (`status: skim`)**: **IF** unverified steps (`[→]` / `[ ]` or unresolved `Repair`) still remain and the learner says `"看不进去/推不动/先出笔记"` (or invokes `"存笔记"` mid-roadmap), **do NOT ask an extra quiz or clarification question**—compile honestly as **`status: skim`**:
+     - Preserve the verified/source-grounded mechanism & equation skeleton in the body for future lookup;
+     - **NEVER** fabricate `> [!tip] 想通的关键`; instead write **`> [!question] 待深挖断点`** with 3 concise lines: `- **已验直觉**：...` (locked `[✓]` floor), `- **卡壳断点**：...` (exact stalled formula/proof anchor), `- **重启入口**：...` (1 concrete `<30s` micro-step to resume);
+     - Bound `## 自测与关联` (`自测线索`) strictly to `已验直觉` and black-box applicability (never quiz unencoded breakpoint algebra);
+     - Close with 1 neutral line noting `[skim]` breakpoint offloading (*“因剩余推导未验证，已按 `[skim]` 记录断点（若实已掌握回复一句即可改为 `evergreen`）。”*).
+2. **Write, Upgrade, or Enrich `notes/<概念名>.md` (`claude-obsidian` Narrative Style)**:
+   - Use `_templates/concept-note.md` for new notes. When upgrading `[skim]` → `evergreen`, edit `notes/<概念名>.md` in place: preserve `created:`, bump `updated:`, set `status: evergreen`, replace `> [!question] 待深挖断点` with verified `> [!tip] 想通的关键`, update `## 适用边界与失效条件` / `自测线索` to full coverage. When enriching an `evergreen` `[[X]]`, merge smoothly into existing headings (`2–4 ##`, `≤2 自测线索`, zero changelog sections).
+   - **Disjoint YAML Edges & Staged Nested `sources`**: Quote wikilinks (`["[[...]]"]`); keep `prerequisites`, `sources`, and `related` strictly disjoint; use `status: skim | evergreen | superseded` and 2–3 lowercase `kebab-case` `tags`. **IF** compiling mid-paper before `ParentPaper.md` exists, set `sources: []` temporarily so lint passes, then backfill `sources: ["[[ParentPaper]]"]` in `paper` Phase 4. **NEVER** add `"[[新论文]]"` to `concept.related` when that new paper already lists this concept in `prerequisites`—cite `[[新论文]]` in prose instead.
+   - **Two-Tier Symbol Binding & Signal-Bearing Warnings**: Define 3–5 global symbols upfront; define local symbols right before their formula; place `> [!tip] 想通的关键` near the key derivation (or `> [!question] 待深挖断点` when `status: skim`). Under `## 适用边界与失效条件`:
+     - Use **`> [!warning] 易错陷阱：<盲点短标题>`** (in objective, third-person technical language—no chat anecdotes) when Phases 1–4 exposed a real learner blind spot or repair, and target ≥1 `自测线索` at it;
+     - Otherwise use **`> [!warning] 常见误区：<边界短标题>`**.
+   - **Zero-Spoiler Body-Grounded `## 自测与关联`**: Write 2 blind `自测线索` (Condition-Action vs. Boundary-Flip). **NEVER** include the note's own `title` or `aliases` inside `自测线索`, **NEVER** test a theorem or criterion not derived in the note body, and **NEVER** duplicate YAML link lists at the bottom. Strictly follow `GEMINI.md` MathJax × `[[wikilink]]` formatting.
+3. **Update `index.md` & Batch-Triage Side-Notes**:
+   - Add/update `- [[<概念名>]] [skim] — ~20–30 字核心命题 (YYYY-MM-DD)` for `status: skim` concepts, or remove `[skim]` for `evergreen` (`## 概念与主题 (Concepts)` → `### <领域名称>`), and link the updated `notes/<概念名>.md` & `index.md` via clickable `[basename](file:///...)` anchors in your chat confirmation.
+   - **Backlog Closure**: If compiled from Backlog (`源自 [[来源笔记]]`), set `sources: ["[[来源笔记]]"]`, and if the source is a `paper` note, add `[[<概念名>]]` into its `concepts` (or `prerequisites`), update its body + `updated:`, and delete the Backlog line.
+   - Batch-triage tracked `📌 待沉淀支线` (`暂存 Backlog / 抽成独立笔记 / 忽略`); in non-bailout sessions with `≥2` side-notes, use 1 batched `ask_question` after compiling the main note. Append deferred items solely under `## 待沉淀支线 (Backlog)` (soft cap 8) with plain bold `**<概念名>**` (no uncreated `[[...]]`).
+4. **Lint & Resume**:
+   - Run `python3 -B scripts/lint-vault.py` and resolve all errors and warnings before finishing or resuming the parent paper.

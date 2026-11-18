@@ -1,6 +1,12 @@
 .DS_Store
+._*
+__pycache__/
+*.py[cod]
+.trash/
 .claudian/
-.obsidian/
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/plugins/
 inbox/*
 !inbox/.gitkeep
 .raw/*
